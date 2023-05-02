@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://tnjf0y33du8e"]
+
+[ext_resource type="Script" path="res://Scenes/level.gd" id="1_kuinp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4hry"]
+size = Vector2(768, 64)
+
+[node name="World" type="Node"]
+script = ExtResource("1_kuinp")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(256, 448)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(384, 32)
+shape = SubResource("RectangleShape2D_l4hry")
+
+[node name="Control" type="Control" parent="Floor"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 768.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Floor/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Floor/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+spawn_path = NodePath("../Players")

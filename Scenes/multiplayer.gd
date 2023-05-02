@@ -13,12 +13,12 @@ func _ready():
 		_on_host_pressed.call_deferred()
 
 func start_game():
-	# Hide the UI and unpause to start the game.
+	# Hide the UI.
 	$UI.hide()
 	# Only change level on the server.
 	# Clients will instantiate the level via the spawner.
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://Scenes/world.tscn"))
+		change_level.call_deferred(load("res://Scenes/level.tscn"))
 
 # Call this function deferred and only on the main authority (server).
 func change_level(scene: PackedScene):
@@ -31,7 +31,6 @@ func change_level(scene: PackedScene):
 	level.add_child(scene.instantiate())
 
 func _on_host_pressed():
-	print("Host pressed")
 	# Start as server.
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT)
@@ -42,7 +41,6 @@ func _on_host_pressed():
 	start_game()
 
 func _on_connect_pressed():
-	print("Join pressed")
 	# Start as client.
 	var txt : String = $UI/Net/Options/Remote.text
 	if txt == "":

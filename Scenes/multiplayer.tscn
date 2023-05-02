@@ -40,7 +40,7 @@ text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/world.tscn")
+_spawnable_scenes = PackedStringArray("res://Scenes/level.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
