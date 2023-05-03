@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj61o1p0q1hsj"]
+[gd_scene load_steps=3 format=3 uid="uid://dj61o1p0q1hsj"]
 
 [ext_resource type="Script" path="res://Scenes/multiplayer.gd" id="1_r3eut"]
+[ext_resource type="Script" path="res://Helpers/uPNP.gd" id="2_nmmdt"]
 
 [node name="Multiplayer" type="Node"]
 script = ExtResource("1_r3eut")
@@ -9,40 +10,114 @@ script = ExtResource("1_r3eut")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 361.0
-offset_bottom = 95.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Net" type="VBoxContainer" parent="UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Net" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_right = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
-[node name="Options" type="HBoxContainer" parent="UI/Net"]
+[node name="Options" type="VBoxContainer" parent="UI/Net"]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="UI/Net/Options"]
 layout_mode = 2
-text = "Direct: "
+text = "Host:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Port_Container" type="HBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="UI/Net/Options/Port_Container"]
+layout_mode = 2
+text = "Port: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Port" type="LineEdit" parent="UI/Net/Options/Port_Container"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "4433"
+max_length = 6
+context_menu_enabled = false
+clear_button_enabled = true
 
 [node name="Host" type="Button" parent="UI/Net/Options"]
 layout_mode = 2
 text = "Host"
 
-[node name="Connect" type="Button" parent="UI/Net/Options"]
+[node name="HSeparator" type="HSeparator" parent="UI/Net/Options"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "Connect"
 
-[node name="Remote" type="LineEdit" parent="UI/Net/Options"]
-custom_minimum_size = Vector2(150, 0)
+[node name="Label2" type="Label" parent="UI/Net/Options"]
+layout_mode = 2
+text = "Join:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IP_Container" type="HBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="UI/Net/Options/IP_Container"]
+layout_mode = 2
+text = "IP: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Remote" type="LineEdit" parent="UI/Net/Options/IP_Container"]
+custom_minimum_size = Vector2(117.319, 0)
 layout_mode = 2
 text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
+max_length = 11
+clear_button_enabled = true
+
+[node name="Port_Container2" type="HBoxContainer" parent="UI/Net/Options"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="UI/Net/Options/Port_Container2"]
+layout_mode = 2
+text = "Port: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Port2" type="LineEdit" parent="UI/Net/Options/Port_Container2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "4433"
+max_length = 6
+context_menu_enabled = false
+clear_button_enabled = true
+
+[node name="Connect" type="Button" parent="UI/Net/Options"]
+layout_mode = 2
+text = "Connect"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/level.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
+[node name="uPNP" type="Node" parent="."]
+script = ExtResource("2_nmmdt")
+
+[connection signal="text_changed" from="UI/Net/Options/Port_Container/Port" to="." method="_on_port_text_changed"]
 [connection signal="pressed" from="UI/Net/Options/Host" to="." method="_on_host_pressed"]
+[connection signal="text_changed" from="UI/Net/Options/IP_Container/Remote" to="." method="_on_remote_text_changed"]
+[connection signal="text_submitted" from="UI/Net/Options/IP_Container/Remote" to="." method="_on_remote_text_submitted"]
+[connection signal="text_changed" from="UI/Net/Options/Port_Container2/Port2" to="." method="_on_port_text_changed"]
 [connection signal="pressed" from="UI/Net/Options/Connect" to="." method="_on_connect_pressed"]
