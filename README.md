@@ -6,14 +6,16 @@ Very basic 2D Platformer utilizing MultiplayerSpawners (spawning level and playe
 
 ### Basics included
 
-- Set up server
-- Load level
+- uPNP port forwarding
+- Server setup
+- Level load
 - Spawn players
+- Synchronize state (basic)
 
 ### Synchronization
 
 - Sync `player:player_id` (at spawn) and `player:position`
-- Sync input direction (float)
+- Sync `input` direction (float)
 - Use `rpc` local call for jump
 
 - Move players (local & puppet) based on synchronized input
@@ -22,6 +24,9 @@ Very basic 2D Platformer utilizing MultiplayerSpawners (spawning level and playe
 
 - TODO: Sync player state as one call
 - TODO: Optimization, e.g. https://godotengine.org/article/multiplayer-changes-godot-4-0-report-4/#optimizations
+- TOOD: Implement Channels and Ordering - https://godotengine.org/article/multiplayer-changes-godot-4-0-report-2/#channels-and-ordering
+- TODO: Chat via RCP, Websocket or WebRTC
+- TODO: ENet mesh networking - https://godotengine.org/article/multiplayer-changes-godot-4-0-report-3/#enet-mesh-networking
 
 ### References
 
